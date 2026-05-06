@@ -1,5 +1,10 @@
 # Changelog
 
+## 3.5.0
+
+* Fixed compatibility with Homebridge 2.x / HAP-NodeJS 2.x by using `Service.Battery` when available.
+* Updated fork author credits while preserving the original author attribution.
+
 ## 3.4.3
 
 * Fixed issue where measurements was not read on Linux 6.8+ kernels.

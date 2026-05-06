@@ -1,5 +1,5 @@
 {
-  "name": "homebridge-mi-hygrothermograph",
+  "name": "homebridge-mi-hygrothermograph-hb2",
   "version": "3.5.0",
   "description": "Homebridge plugin for Xiaomi Mi Bluetooth Temperature and Humidity Sensor",
   "main": "index.js",
@@ -20,12 +20,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/hannseman/homebridge-mi-hygrothermograph"
+    "url": "https://github.com/Niklas31/mi-hygrothermograph-HB2"
   },
   "bugs": {
-    "url": "https://github.com/hannseman/homebridge-mi-hygrothermograph/issues"
+    "url": "https://github.com/Niklas31/mi-hygrothermograph-HB2/issues"
   },
-  "homepage": "https://github.com/hannseman/homebridge-mi-hygrothermograph#readme",
+  "homepage": "https://github.com/Niklas31/mi-hygrothermograph-HB2#readme",
   "files": [
     "index.js",
     "config-sample.json",

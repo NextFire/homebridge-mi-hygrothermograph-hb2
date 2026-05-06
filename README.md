@@ -1,6 +1,6 @@
-# homebridge-mi-hygrothermograph
+# homebridge-mi-hygrothermograph-hb2
 [![verified-by-homebridge](https://badgen.net/badge/homebridge/verified/purple)](https://github.com/homebridge/homebridge/wiki/Verified-Plugins)
-[![npm](https://img.shields.io/npm/v/homebridge-mi-hygrothermograph.svg)](https://www.npmjs.com/package/homebridge-mi-hygrothermograph) ![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/hannseman/homebridge-mi-hygrothermograph/main.yml?branch=master) [![Coveralls github](https://img.shields.io/coveralls/github/hannseman/homebridge-mi-hygrothermograph/master.svg)](https://coveralls.io/github/hannseman/homebridge-mi-hygrothermograph?branch=master)
+[![npm](https://img.shields.io/npm/v/homebridge-mi-hygrothermograph-hb2.svg)](https://www.npmjs.com/package/homebridge-mi-hygrothermograph-hb2)
 
 [Homebridge](https://github.com/nfarina/homebridge) plugin for exposing measured temperature, humidity and plant metrics from Xiaomi sensors as [HomeKit](https://www.apple.com/ios/home/) accessories.
 
@@ -31,7 +31,7 @@ For more detailed information and descriptions for other platforms please see th
 ### Install homebridge and this plugin
 ```
 [sudo] npm install -g --unsafe-perm homebridge
-[sudo] npm install -g --unsafe-perm homebridge-mi-hygrothermograph
+[sudo] npm install -g --unsafe-perm homebridge-mi-hygrothermograph-hb2
 ```
 
 **Note:** depending on your platform you might need to run `npm install -g`  with root privileges.

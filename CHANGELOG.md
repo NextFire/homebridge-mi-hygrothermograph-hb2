@@ -3,6 +3,7 @@
 ## 3.5.0
 
 * Fixed compatibility with Homebridge 2.x / HAP-NodeJS 2.x by using `Service.Battery` when available.
+* Published the fork as `homebridge-mi-hygrothermograph-hb2`.
 * Updated fork author credits while preserving the original author attribution.
 
 ## 3.4.3

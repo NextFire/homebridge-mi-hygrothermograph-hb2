@@ -32,6 +32,7 @@ describe("accessory", () => {
     };
 
     this.services = {
+      Battery: ServiceMock,
       BatteryService: ServiceMock,
       HumiditySensor: ServiceMock,
       TemperatureSensor: ServiceMock,
@@ -1466,6 +1467,22 @@ describe("accessory", () => {
   });
 
   it("should setup batteryService when enabled", () => {
+    const accessory = new this.HygrothermographAccessory(mockLogger, {
+      disableBatteryLevel: false,
+    });
+    assert(accessory.batteryService !== undefined);
+  });
+
+  it("should setup batteryService with HAP-NodeJS 2 Battery constructor", () => {
+    delete this.services.BatteryService;
+    const accessory = new this.HygrothermographAccessory(mockLogger, {
+      disableBatteryLevel: false,
+    });
+    assert(accessory.batteryService !== undefined);
+  });
+
+  it("should setup batteryService with legacy BatteryService constructor", () => {
+    delete this.services.Battery;
     const accessory = new this.HygrothermographAccessory(mockLogger, {
       disableBatteryLevel: false,
     });

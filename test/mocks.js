@@ -32,6 +32,21 @@ class NobleMock extends EventEmitter {
   stopScanning() {}
 }
 
+class ActiveReadCharacteristicMock extends EventEmitter {
+  constructor(data) {
+    super();
+    this.data = data;
+  }
+
+  async subscribeAsync() {
+    process.nextTick(() => {
+      this.emit("data", this.data, true);
+    });
+  }
+
+  async unsubscribeAsync() {}
+}
+
 class PeripheralMock {
   constructor(
     event,
@@ -51,6 +66,25 @@ class PeripheralMock {
         },
       ],
     };
+  }
+}
+
+class ActiveReadPeripheralMock extends PeripheralMock {
+  constructor(
+    event,
+    notificationData,
+    address = "a4:c1:38:a1:a8:25",
+    id = "a4c138a1a825",
+    uuid = "fe95"
+  ) {
+    super(event, address, id, uuid);
+    this.advertisement.localName = "LYWSD03MMC";
+    this.notificationData = notificationData;
+    this.connectAsync = async () => {};
+    this.disconnectAsync = async () => {};
+    this.discoverSomeServicesAndCharacteristicsAsync = async () => ({
+      characteristics: [new ActiveReadCharacteristicMock(this.notificationData)],
+    });
   }
 }
 
@@ -90,6 +124,7 @@ class MQTTMock extends EventEmitter {
 }
 
 module.exports = {
+  ActiveReadPeripheralMock,
   CharacteristicMock,
   ServiceMock,
   PeripheralMock,

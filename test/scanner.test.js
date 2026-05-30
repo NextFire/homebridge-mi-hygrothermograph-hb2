@@ -3,6 +3,7 @@ const { describe, it, beforeEach, afterEach } = require("mocha");
 const proxyquire = require("proxyquire").noCallThru();
 const sinon = require("sinon");
 const {
+  ActiveReadPeripheralMock,
   PeripheralMock,
   ParseMock,
   NoEventParseMock,
@@ -28,6 +29,14 @@ describe("scanner", () => {
     moisture: Buffer.from("71209800a864aed0a8654c0d08100112", "hex"),
     fertility: Buffer.from("71209800a564aed0a8654c0d091002b800", "hex"),
   };
+  const sensorDataNoEvent = {
+    lywsd03mmc: Buffer.from("30585b050125a8a138c1a4280100", "hex"),
+  };
+
+  const flushAsyncEvents = () =>
+    new Promise((resolve) => {
+      setImmediate(resolve);
+    });
 
   beforeEach(() => {
     this.scanner = new Scanner(null, { log: mockLogger });
@@ -267,6 +276,34 @@ describe("scanner", () => {
     );
     nobleMock.emit("discover", peripheral);
     assert(spyDebugLogger.calledWith("No event"));
+  });
+
+  it("should read LYWSD03MMC values over GATT when advertisements have no event", async () => {
+    const temperatureEventSpy = sinon.spy();
+    const humidityEventSpy = sinon.spy();
+    const changeEventSpy = sinon.spy();
+    this.scanner.on("temperatureChange", temperatureEventSpy);
+    this.scanner.on("humidityChange", humidityEventSpy);
+    this.scanner.on("change", changeEventSpy);
+    const peripheral = new ActiveReadPeripheralMock(
+      sensorDataNoEvent.lywsd03mmc,
+      Buffer.from("66083cb80b", "hex")
+    );
+
+    nobleMock.emit("discover", peripheral);
+    await flushAsyncEvents();
+
+    assert(temperatureEventSpy.calledWith(21.5));
+    assert(humidityEventSpy.calledWith(60));
+    assert(
+      changeEventSpy.calledWith(
+        sinon.match({
+          batteryMv: 3000,
+          humidity: 60,
+          temperature: 21.5,
+        })
+      )
+    );
   });
 
   it("should log on scanStart", () => {

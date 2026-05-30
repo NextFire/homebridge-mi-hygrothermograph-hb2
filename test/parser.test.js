@@ -5,6 +5,9 @@ const { Parser } = require("../lib/parser");
 describe("parser", () => {
   const isFlora = (key) =>
     ["illuminance", "moisture", "fertility"].includes(key);
+  const sensorDataNoEvent = {
+    lywsd03mmc: Buffer.from("30585b050125a8a138c1a4280100", "hex"),
+  };
   const sensorData = {
     temperatureAndHumidity: Buffer.from(
       "5020aa01b064aed0a8654c0d1004d9006001",
@@ -259,5 +262,15 @@ describe("parser", () => {
     assert.strictEqual(result.eventType, null);
     assert.strictEqual(result.eventLength, null);
     assert.strictEqual(result.event, null);
+  });
+
+  it("should parse LYWSD03MMC advertisements without event data", () => {
+    const result = new Parser(sensorDataNoEvent.lywsd03mmc).parse();
+    assert.strictEqual(result.version, 5);
+    assert.strictEqual(result.productId, 1371);
+    assert.strictEqual(result.macAddress, "a4c138a1a825");
+    assert.strictEqual(result.frameControl.hasEvent, false);
+    assert.strictEqual(result.eventType, null);
+    assert.strictEqual(result.eventLength, null);
   });
 });
